@@ -1,12 +1,11 @@
 body{
-    padding: 0;
     display: flex;
     justify-content: center;
     min-height: 100vh;
+    margin: 0;
 }
 main{
     display: flex;
-    justify-content: center;
     align-items: center;
 }
 
@@ -15,11 +14,23 @@ main{
     grid-template-columns: repeat(var(--size), 30px) ;
     grid-template-rows: repeat(var(--size), 30px);
     background-color: lightgray;
-    padding: 2px;
+    padding: 5px;
 }
 .board div {
-    height: 25px;
-    width: 25px;
-    
+    height: 100%;
+    width: 100%;
+    border: 1px solid lightgray;
     background-color: darkslategray;
+}
+
+div[data-status="marked"]{
+    background-color: yellow;
+}
+
+div[data-status="revealed"]{
+    background-color: white;
+}
+
+div[data-status="mine"]{
+    background-color: red;
 }
