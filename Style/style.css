@@ -1,10 +1,25 @@
+body{
+    padding: 0;
+    display: flex;
+    justify-content: center;
+    min-height: 100vh;
+}
+main{
+    display: flex;
+    justify-content: center;
+    align-items: center;
+}
+
 .board{
+    display: grid;
+    grid-template-columns: repeat(var(--size), 30px) ;
+    grid-template-rows: repeat(var(--size), 30px);
     background-color: lightgray;
     padding: 2px;
 }
 .board div {
     height: 25px;
     width: 25px;
-    border: 1px solid lightgray;
+    
     background-color: darkslategray;
 }
