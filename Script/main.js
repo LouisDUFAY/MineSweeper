@@ -1,13 +1,9 @@
-import { createBoard, markTile, revealTile } from "./mineSweeper.js";
-
 const boardSize = 10;
 const nbMine = 5;
 
 const board = createBoard(boardSize,nbMine);
 const boardElement = document.querySelector(".board");
 boardElement.style.setProperty("--size", boardSize)
-
-//console.log(Math.floor(Math.random() * (boardSize+1)));
 
 board.forEach((row) => {
     row.forEach((tile) => {

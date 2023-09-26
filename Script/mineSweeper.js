@@ -7,7 +7,7 @@ const tileStatus = {
 
 
 
-export function createBoard(size, nbMine){
+function createBoard(size, nbMine){
     
     //générer "nbMine" de position aléatoire (boucle while)
     //ajouter ces positions à un tableau
@@ -58,7 +58,7 @@ export function createBoard(size, nbMine){
 
 }
 
-export function markTile(tile){
+function markTile(tile){
 
     if(tile.status !== tileStatus.HIDDEN && tile.status !== tileStatus.MARKED){
         return
@@ -73,7 +73,7 @@ export function markTile(tile){
 
 }
 
-export function revealTile(tile){
+function revealTile(tile){
     if(tile.status === tileStatus.MARKED || tile.status === tileStatus.REVEALED){
         return
     }
