@@ -21,6 +21,10 @@ main{
     width: 100%;
     border: 1px solid lightgray;
     background-color: darkslategray;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    
 }
 
 div[data-status="marked"]{

@@ -9,7 +9,8 @@ board.forEach((row) => {
     row.forEach((tile) => {
         boardElement.append(tile.element)
         tile.element.addEventListener("click", () => {
-            revealTile(tile);
+            revealTile(tile, getNearbyTile(board,tile));
+            getNearbyTile(board, tile);
         })
 
         tile.element.addEventListener("contextmenu", (e)=> {

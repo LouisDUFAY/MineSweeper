@@ -9,10 +9,6 @@ const tileStatus = {
 
 function createBoard(size, nbMine){
     
-    //générer "nbMine" de position aléatoire (boucle while)
-    //ajouter ces positions à un tableau
-    //comparé la postion de la cellule générer avec la liste de position des mines
-    //si oui --> mine = true
     const board = [];
     const minePositions = getMinePositions(size,nbMine)
     console.log(minePositions);
@@ -23,8 +19,6 @@ function createBoard(size, nbMine){
         for(let y = 0; y < size; y++){
             const element = document.createElement("div")
             element.dataset.status = tileStatus.HIDDEN;
-            element.dataset.isMine = "0"
-            
             
             const tile = {
                 element,
@@ -38,10 +32,6 @@ function createBoard(size, nbMine){
                 set status(value){
                     this.element.dataset.status = value;
                 }
-            }
-
-            if(tile.mine){
-                tile.element.dataset.isMine = "1";
             }
 
             row.push(tile);
@@ -74,16 +64,25 @@ function markTile(tile){
 }
 
 function revealTile(tile){
+
+    
     if(tile.status === tileStatus.MARKED || tile.status === tileStatus.REVEALED){
         return
     }
     
-    if(tile.element.dataset.isMine === "1"){
+    if(tile.mine){
         tile.status = tileStatus.MINE;
         return
     }
 
     tile.status = tileStatus.REVEALED;
+    const nearbyTile = getNearbyTile(board, tile)
+    const nearbyMine = nearbyTile.filter(t => t?.mine)
+    if(nearbyMine.length === 0){
+        nearbyTile.forEach();
+    }else{
+        tile.element.innerText = nearbyMine.length;
+    }
 }
 
 function getMinePositions(size, nbMine){
@@ -120,5 +119,19 @@ function isMine(minePositions, x, y){
     }
 
     return isMine
+}
+
+function getNearbyTile(board, tile){
+    const nearbyTile = []
+
+    for(let x = tile.x-1; x <= tile.x+1 ;x++){
+        for(let y = tile.y-1; y <= tile.y+1 ;y++){
+
+            nearbyTile.push(board[x]?.[y])
+
+        }
+    }
+    // console.log(nearbyTile);
+    return nearbyTile;
 }
 
