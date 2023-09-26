@@ -23,11 +23,15 @@ export function createBoard(size, nbMine){
         for(let y = 0; y < size; y++){
             const element = document.createElement("div")
             element.dataset.status = tileStatus.HIDDEN;
+            element.dataset.isMine = "0"
+            
             
             const tile = {
                 element,
                 x,
                 y,
+                mine : isMine(minePositions, x, y),
+
                 get status(){
                     return this.element.dataset.status
                 },
@@ -35,6 +39,10 @@ export function createBoard(size, nbMine){
                     console.log("set")
                     this.element.dataset.status = value;
                 }
+            }
+
+            if(tile.mine){
+                tile.element.dataset.isMine = "1";
             }
 
             row.push(tile);
@@ -45,7 +53,7 @@ export function createBoard(size, nbMine){
 
     }
 
-    //console.log(board);
+    console.log(board);
 
     return board
 
@@ -70,6 +78,10 @@ export function revealTile(tile){
     if(tile.status === tileStatus.MARKED || tile.status === tileStatus.REVEALED){
         return
     }
+    
+    if(tile.dataset.isMine === "1"){
+        tile.status = tileStatus.MINE;
+    }
 
     tile.status = tileStatus.REVEALED;
 }
@@ -93,9 +105,20 @@ function getMinePositions(size, nbMine){
 }
 
 function randomNumber(size){
-    return Math.floor(Math.random() * size-1); 
+    return Math.floor(Math.random() * size);
 }
 
 function positionMatch(a, b){
     return a.x === b.x && a.y === b.y
 }
+
+function isMine(minePositions, x, y){
+    let isMine = false;
+
+    if(minePositions.some(p => p.x == x && p.y == y)){
+        isMine = true;
+    }
+
+    return isMine
+}
+
