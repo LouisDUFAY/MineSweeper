@@ -36,7 +36,6 @@ export function createBoard(size, nbMine){
                     return this.element.dataset.status
                 },
                 set status(value){
-                    console.log("set")
                     this.element.dataset.status = value;
                 }
             }
@@ -79,8 +78,9 @@ export function revealTile(tile){
         return
     }
     
-    if(tile.dataset.isMine === "1"){
+    if(tile.element.dataset.isMine === "1"){
         tile.status = tileStatus.MINE;
+        return
     }
 
     tile.status = tileStatus.REVEALED;
