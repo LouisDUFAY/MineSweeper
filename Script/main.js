@@ -1,16 +1,15 @@
 const boardSize = 10;
 const nbMine = 5;
 
-const board = createBoard(boardSize,nbMine);
-const boardElement = document.querySelector(".board");
-boardElement.style.setProperty("--size", boardSize)
+const tileList = createBoard(boardSize,nbMine);
+const tileListElement = document.querySelector(".board");
+tileListElement.style.setProperty("--size", boardSize)
 
-board.forEach((row) => {
+tileList.forEach((row) => {
     row.forEach((tile) => {
-        boardElement.append(tile.element)
+        tileListElement.append(tile.element)
         tile.element.addEventListener("click", () => {
-            revealTile(tile, getNearbyTile(board,tile));
-            getNearbyTile(board, tile);
+            revealTile(tileList, tile);
         })
 
         tile.element.addEventListener("contextmenu", (e)=> {

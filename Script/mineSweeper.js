@@ -63,25 +63,24 @@ function markTile(tile){
 
 }
 
-function revealTile(tile){
+function revealTile(board, tileArg){
 
-    
-    if(tile.status === tileStatus.MARKED || tile.status === tileStatus.REVEALED){
+    if(tileArg.status !== tileStatus.HIDDEN){
         return
     }
     
-    if(tile.mine){
-        tile.status = tileStatus.MINE;
+    if(tileArg.mine){
+        tileArg.status = tileStatus.MINE;
         return
     }
 
-    tile.status = tileStatus.REVEALED;
-    const nearbyTile = getNearbyTile(board, tile)
+    tileArg.status = tileStatus.REVEALED;
+    const nearbyTile = getNearbyTile(board, tileArg)
     const nearbyMine = nearbyTile.filter(t => t?.mine)
     if(nearbyMine.length === 0){
-        nearbyTile.forEach();
+        nearbyTile.forEach(revealTile.bind(null ,board));
     }else{
-        tile.element.innerText = nearbyMine.length;
+        tileArg.element.textContent = nearbyMine.length;
     }
 }
 
@@ -121,17 +120,20 @@ function isMine(minePositions, x, y){
     return isMine
 }
 
-function getNearbyTile(board, tile){
+function getNearbyTile(board, {x, y}){
     const nearbyTile = []
 
-    for(let x = tile.x-1; x <= tile.x+1 ;x++){
-        for(let y = tile.y-1; y <= tile.y+1 ;y++){
+    for(let xOffset = -1; xOffset <= 1 ;xOffset ++){
+        for(let yOffset = -1; yOffset <= 1 ;yOffset ++){
 
-            nearbyTile.push(board[x]?.[y])
+            const tile = board[x + xOffset]?.[y + yOffset]
+            if(tile){
+                nearbyTile.push(tile)
+            }
 
         }
     }
-    // console.log(nearbyTile);
+    
     return nearbyTile;
 }
 
