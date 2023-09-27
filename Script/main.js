@@ -1,5 +1,5 @@
-const boardSize = 10;
-const nbMine = 5;
+const boardSize = 18;
+const nbMine = 50;
 
 const tileList = createBoard(boardSize,nbMine);
 const tileListElement = document.querySelector(".board");

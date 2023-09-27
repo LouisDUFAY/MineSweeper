@@ -1,30 +1,79 @@
+@import url('https://fonts.googleapis.com/css2?family=Montserrat:wght@400;700&family=Poppins:wght@400;500;600;700;800&display=swap');
+
+:root{
+    --veryDarkGray : #b6b6b6;
+    --veryDarkBlue : #263042;
+}
+
+*{
+    font-family: 'Montserrat', sans-serif;
+    font-weight: bold;
+    box-sizing: border-box;
+}
+
 body{
     display: flex;
     justify-content: center;
     min-height: 100vh;
     margin: 0;
+    background-color: rgb(207, 207, 219);
 }
 main{
     display: flex;
+    flex-direction: column;
     align-items: center;
+    justify-content: center;
+    gap: 10px;
+}
+
+h1 {
+    margin-bottom: 50px;
+}
+
+.gameInfo{
+    display: flex;
+    gap: 50px;
+}
+
+.timer{
+    display: flex;
+    align-items: center;
+}
+
+.flagCounter{
+    display: flex;
+    align-items: center;
+    gap: 5px;
+}
+
+.flagCounter span, .timer span{
+    font-size: 20px;
+}
+
+
+.container{
+    background-color: lightgray;
+    border-radius: 5px;
+    box-shadow: rgba(0, 0, 0, 0.35) 0px 5px 15px;
 }
 
 .board{
     display: grid;
     grid-template-columns: repeat(var(--size), 30px) ;
     grid-template-rows: repeat(var(--size), 30px);
-    background-color: lightgray;
-    padding: 5px;
+    width: fit-content;
+    height: fit-content;
+    margin: 5px;
 }
 .board div {
     height: 100%;
     width: 100%;
-    border: 1px solid lightgray;
-    background-color: darkslategray;
+    border: 1px solid var(--veryDarkGray);
+    border-radius: 4px;
+    background-color: var(--veryDarkBlue);
     display: flex;
     justify-content: center;
     align-items: center;
-    
 }
 
 div[data-status="marked"]{
@@ -32,9 +81,9 @@ div[data-status="marked"]{
 }
 
 div[data-status="revealed"]{
-    background-color: white;
+    background-color: lightgray;
 }
 
 div[data-status="mine"]{
-    background-color: red;
+    background-color: rgb(233, 0, 0);
 }
