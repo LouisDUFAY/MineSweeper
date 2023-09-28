@@ -56,11 +56,13 @@ function markTile(tile){
 
     if(tile.status === tileStatus.MARKED){
         tile.status = tileStatus.HIDDEN
+        udateNbFlag("add");
     }else{
         tile.status = tileStatus.MARKED
+        udateNbFlag("substract");
     }
     
-
+    checkWin();
 }
 
 function revealTile(board, tileArg){
@@ -71,10 +73,16 @@ function revealTile(board, tileArg){
     
     if(tileArg.mine){
         tileArg.status = tileStatus.MINE;
+        stopTimer();
         return
     }
 
     tileArg.status = tileStatus.REVEALED;
+    if(isFirstTileClicked === false){
+        startTimer();
+        isFirstTileClicked = true;
+    }
+
     const nearbyTile = getNearbyTile(board, tileArg)
     const nearbyMine = nearbyTile.filter(t => t?.mine)
     if(nearbyMine.length === 0){
@@ -82,6 +90,8 @@ function revealTile(board, tileArg){
     }else{
         tileArg.element.textContent = nearbyMine.length;
     }
+
+    checkWin();
 }
 
 function getMinePositions(size, nbMine){
@@ -137,3 +147,31 @@ function getNearbyTile(board, {x, y}){
     return nearbyTile;
 }
 
+function udateNbFlag(operation){
+
+    if(operation === "add"){
+        currentNbFlag++;
+    }else if(operation === "substract"){
+        currentNbFlag--;
+    }
+
+    flagCounter.innerText = currentNbFlag;
+}
+
+function startTimer(){
+    timerInterval = setInterval(updateTimer, 1000);
+}
+
+function stopTimer(){
+    clearInterval(timerInterval);
+}
+
+function updateTimer(){
+    currentTime++;
+
+    timer.innerText = currentTime;
+}
+
+function checkWin(){
+    
+}

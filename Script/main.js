@@ -1,9 +1,20 @@
-const boardSize = 18;
-const nbMine = 50;
+const boardSize = 5;
+const nbMine = 5;
+let currentNbFlag = nbMine;
+let currentTime = 0;
+let isFirstTileClicked = false
+let timerInterval = undefined;
+
+const flagCounter = document.getElementById("flagCounterContent");
+flagCounter.innerText = currentNbFlag;
+
+const timer = document.getElementById("timerContent");
+timer.innerText = currentTime;
 
 const tileList = createBoard(boardSize,nbMine);
 const tileListElement = document.querySelector(".board");
-tileListElement.style.setProperty("--size", boardSize)
+tileListElement.style.setProperty("--size", boardSize);
+
 
 tileList.forEach((row) => {
     row.forEach((tile) => {
