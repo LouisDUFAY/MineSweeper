@@ -173,5 +173,12 @@ function updateTimer(){
 }
 
 function checkWin(){
-    
+    let hiddenTiles = []
+
+    tileList.forEach(row => {
+        hiddenTiles.push(row.filter(t => t.status === tileStatus.HIDDEN));
+        console.log(hiddenTiles);
+    })
+
+    if(hiddenTiles.length = 0) console.log("You win !");
 }
