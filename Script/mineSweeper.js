@@ -29,6 +29,7 @@ function createBoard(size, nbMine){
                 get status(){
                     return this.element.dataset.status
                 },
+
                 set status(value){
                     this.element.dataset.status = value;
                 }
@@ -41,8 +42,6 @@ function createBoard(size, nbMine){
         board.push(row);
 
     }
-
-    console.log(board);
 
     return board
 
@@ -62,7 +61,7 @@ function markTile(tile){
         udateNbFlag("substract");
     }
     
-    checkWin();
+    
 }
 
 function revealTile(board, tileArg){
@@ -76,6 +75,8 @@ function revealTile(board, tileArg){
         stopTimer();
         return
     }
+
+    
 
     tileArg.status = tileStatus.REVEALED;
     if(isFirstTileClicked === false){
@@ -91,7 +92,7 @@ function revealTile(board, tileArg){
         tileArg.element.textContent = nearbyMine.length;
     }
 
-    checkWin();
+    
 }
 
 function getMinePositions(size, nbMine){
@@ -172,13 +173,41 @@ function updateTimer(){
     timer.innerText = currentTime;
 }
 
+function checkGameState(){
+
+    let win = checkWin();
+    let lose = checkLose();
+
+    if(win || lose){
+        tileList.forEach(row =>{
+            row.forEach(t => {
+                t.element.addEventListener("click", (e) => e.stopImmediatePropagation(), {capture : true})
+                t.element.addEventListener("contextmenu", (e) => e.stopImmediatePropagation(), {capture : true})
+            })
+        })
+    }
+
+    if(win){
+        console.log("Win !");
+    }
+
+    if(lose){
+        console.log("Lost !");
+    }
+}
+
 function checkWin(){
-    let hiddenTiles = []
-
-    tileList.forEach(row => {
-        hiddenTiles.push(row.filter(t => t.status === tileStatus.HIDDEN));
-        console.log(hiddenTiles);
+    return tileList.every(row => {
+        return row.every(tile => {
+            return (tile.status === tileStatus.REVEALED || (tile.mine && (tile.status === tileStatus.MARKED || tile.status === tileStatus.HIDDEN)));
+        })
     })
+}
 
-    if(hiddenTiles.length = 0) console.log("You win !");
+function checkLose(){
+    return tileList.some(row => {
+        return row.some(tile => {
+            return tile.status === tileStatus.MINE;
+        })
+    })
 }
