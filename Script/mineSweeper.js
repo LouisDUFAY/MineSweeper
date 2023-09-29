@@ -5,8 +5,6 @@ const tileStatus = {
     MINE : "mine"
 }
 
-
-
 function createBoard(size, nbMine){
     
     const board = [];
@@ -72,7 +70,6 @@ function revealTile(board, tileArg){
     
     if(tileArg.mine){
         tileArg.status = tileStatus.MINE;
-        stopTimer();
         return
     }
 
@@ -179,6 +176,7 @@ function checkGameState(){
     let lose = checkLose();
 
     if(win || lose){
+        stopTimer();
         tileList.forEach(row =>{
             row.forEach(t => {
                 t.element.addEventListener("click", (e) => e.stopImmediatePropagation(), {capture : true})
@@ -189,10 +187,12 @@ function checkGameState(){
 
     if(win){
         console.log("Win !");
+        gameStateText.textContent = "Congratulations !"
     }
 
     if(lose){
         console.log("Lost !");
+        gameStateText.textContent = "You lose !"
     }
 }
 

@@ -1,5 +1,5 @@
-const boardSize = 5;
-const nbMine = 3;
+const boardSize = 20;
+const nbMine = 70;
 let currentNbFlag = nbMine;
 let currentTime = 0;
 let isFirstTileClicked = false
@@ -10,6 +10,8 @@ flagCounter.innerText = currentNbFlag;
 
 const timer = document.getElementById("timerContent");
 timer.innerText = currentTime;
+
+const gameStateText = document.getElementById("gameStateText");
 
 const btnReset = document.getElementById("reset");
 btnReset.addEventListener("click", () => {location.reload()})
